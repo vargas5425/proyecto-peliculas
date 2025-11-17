@@ -1,5 +1,5 @@
 // peliculas.controller.ts
-import { Controller, Get, Post, Param, Body, Put, Delete, UsePipes, ValidationPipe, UseInterceptors, UploadedFile, BadRequestException } from "@nestjs/common";
+import { Controller, Get, Post, Param, Body, Put, Delete, UseInterceptors, UploadedFile, BadRequestException } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { extname } from "path";
@@ -7,7 +7,6 @@ import { PeliculasService } from "./peliculas.service";
 import { CreatePeliculaDto, UpdatePeliculaDto, PeliculaResponseDto } from "./dtos";
 
 @Controller("peliculas")
-@UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
 export class PeliculasController {
     constructor(private readonly peliculasService: PeliculasService) {}
 

@@ -75,11 +75,7 @@ function NuevoReview({ usuario }: Props) {
     formData.append('anio', anioNumerico.toString());
     formData.append('imagen', nuevoImagen);
 
-    const res = await api.post("/peliculas", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    const res = await api.post("/peliculas", formData);
     
     setPeliculas(prev => [...prev, res.data]);
     setPeliculaId(res.data.id);
@@ -89,13 +85,12 @@ function NuevoReview({ usuario }: Props) {
     setNuevoImagen(null);
     setPreviewImagen("");
     setMensaje("¡Película agregada exitosamente!");
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      setMensaje(error.message || "Error al agregar película");
+  } catch (error: any) {
+    if (error.response?.status === 409) {
+        setMensaje((error.response?.data?.message));
     } else {
-      setMensaje("Error al agregar película");
+        setMensaje("Error: " + (error.message || "Desconocido"));
     }
-    console.error("Error:", error);
   }
 };
 
