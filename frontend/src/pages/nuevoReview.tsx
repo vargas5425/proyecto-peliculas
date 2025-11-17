@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../services/api";
 import { useParams, useNavigate } from "react-router-dom";
-import type { Usuario } from "../types";
-
-interface Pelicula {
-  id: number;
-  titulo: string;
-}
+import type { Usuario, Pelicula } from "../types";
 
 interface Props {
   usuario: Usuario;
@@ -44,7 +39,7 @@ function NuevoReview({ usuario }: Props) {
     if (file) {
       setNuevoImagen(file);
       
-      // Crear URL para previsualización
+      // URL para previsualización
       const previewUrl = URL.createObjectURL(file);
       setPreviewImagen(previewUrl);
     }
@@ -75,13 +70,11 @@ function NuevoReview({ usuario }: Props) {
   }
 
   try {
-    // Crear FormData para enviar el archivo
     const formData = new FormData();
     formData.append('titulo', nuevoTitulo);
     formData.append('anio', anioNumerico.toString());
     formData.append('imagen', nuevoImagen);
 
-    // Enviar con Content-Type multipart/form-data
     const res = await api.post("/peliculas", formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -96,7 +89,7 @@ function NuevoReview({ usuario }: Props) {
     setNuevoImagen(null);
     setPreviewImagen("");
     setMensaje("¡Película agregada exitosamente!");
-  } catch (error: unknown) { // ← Cambiado a unknown
+  } catch (error: unknown) {
     if (error instanceof Error) {
       setMensaje(error.message || "Error al agregar película");
     } else {
@@ -123,7 +116,7 @@ const handleAgregarReview = async () => {
     
     await api.post("/reviews", reviewData);
 
-    setMensaje("¡Reseña agregada exitosamente! 🎉");
+    setMensaje("¡Reseña agregada exitosamente!");
     setComentario("");
     setCalificacion(5);
 
@@ -131,15 +124,9 @@ const handleAgregarReview = async () => {
       navigate(`/peliculas/${peliculaId}`);
     }, 1000);
 
-  } catch (error: unknown) { // ← Cambiado a unknown
-    console.error("ERROR DETALLADO:");
-    console.error("Error:", error);
+  } catch (error: unknown) {
     
-    let errorMessage = "Error al agregar reseña";
-    if (error instanceof Error) {
-      errorMessage += ": " + error.message;
-    }
-    
+    let errorMessage = "Error solo puedes agregar una reseña por pelicula";
     setMensaje(errorMessage);
   } finally {
     setLoading(false);
@@ -315,7 +302,7 @@ const handleAgregarReview = async () => {
             className="form-input"
           />
           <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#666' }}>
-            ⭐ {calificacion}/10
+            Puntuacion Actual: {calificacion}/10
           </div>
         </div>
 

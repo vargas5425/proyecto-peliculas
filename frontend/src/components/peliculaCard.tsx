@@ -6,7 +6,7 @@ interface PeliculaCardProps {
   titulo: string;
   anio: number;
   imagen: string;
-  calificacion: number; // Esto viene de 0-10
+  calificacion: number;
   onClick?: (id: number) => void;
 }
 
@@ -31,8 +31,6 @@ const PeliculaCard: React.FC<PeliculaCardProps> = ({
 
   const renderEstrellas = () => {
     const estrellas = [];
-    
-    // ✅ ESCALAR de 0-10 a 0-5 para las estrellas
     const ratingEnEstrellas = (calificacion / 2); // Convierte 0-10 a 0-5
     
     for (let i = 1; i <= 5; i++) {
@@ -56,13 +54,13 @@ const PeliculaCard: React.FC<PeliculaCardProps> = ({
       className="pelicula-card"
       onClick={() => onClick && onClick(id)}
     >
-      {/* IMAGEN ACTUALIZADA CON getImageUrl */}
+      {/* IMAGEN ACTUALIZADA */}
       <img 
         src={getImageUrl(imagen)} 
         alt={titulo} 
         className="pelicula-imagen" 
         onError={(e) => {
-          e.currentTarget.src = '/images/placeholder.jpg'; // Imagen por defecto si falla
+          e.currentTarget.src = '/images/placeholder.jpg';
         }}
       />
       <div className="pelicula-info">

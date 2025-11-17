@@ -2,15 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import PeliculaCard from "../components/peliculaCard";
-
-interface Pelicula {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  anio: number;
-  imagen: string;
-  calificacionPromedio: number;
-}
+import type { Pelicula } from "../types";
 
 function Peliculas() {
   const navigate = useNavigate();

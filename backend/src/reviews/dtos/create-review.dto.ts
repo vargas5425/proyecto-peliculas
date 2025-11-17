@@ -20,7 +20,8 @@ export class CreateReviewDto {
     texto: string;
 
     @IsNotEmpty()
-    @IsNumber()
+    @Type(() => Number)
+    @IsNumber({ maxDecimalPlaces: 1 })
     @Min(1)
     @Max(10)
     puntuacion: number;

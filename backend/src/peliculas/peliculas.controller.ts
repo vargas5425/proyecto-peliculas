@@ -51,10 +51,9 @@ export class PeliculasController {
             throw new BadRequestException("La imagen es requerida");
         }
 
-        // Crear el DTO para el servicio
         const peliculaData: CreatePeliculaDto = {
             ...createPeliculaDto,
-            imagen: imagen.filename, // Solo guardamos el nombre del archivo
+            imagen: imagen.filename, // Solo guarda el nombre del archivo
         };
 
         return this.peliculasService.create(peliculaData);

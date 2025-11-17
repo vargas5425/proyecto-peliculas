@@ -10,7 +10,7 @@ interface Props {
 
 function EditarReview({ review, onCancel, onUpdate }: Props) {
   const [texto, setTexto] = useState(review.texto);
-  const [puntuacion, setPuntuacion] = useState(review.puntuacion);
+  const [calificacion, setCalificacion] = useState(review.puntuacion);
   const [loading, setLoading] = useState(false);
   const [mensaje, setMensaje] = useState("");
 
@@ -21,15 +21,12 @@ function EditarReview({ review, onCancel, onUpdate }: Props) {
     try {
       await api.put(`/reviews/${review.id}`, {
         texto,
-        puntuacion
+        puntuacion: calificacion
       });
       
       onUpdate(); // Notificar al componente padre
       setMensaje("¡Reseña actualizada exitosamente!");
-      
-      setTimeout(() => {
-        onCancel();
-      }, 1000);
+      onCancel();
       
     } catch (error: any) {
       setMensaje("Error al actualizar: " + (error.response?.data?.message || error.message));
@@ -82,10 +79,11 @@ function EditarReview({ review, onCancel, onUpdate }: Props) {
             <label>Calificación (1-10):</label>
             <input 
               type="number" 
-              value={puntuacion} 
+              value={calificacion} 
               min={1}
               max={10}
-              onChange={e => setPuntuacion(Number(e.target.value))}
+              step="0.1"
+              onChange={e => setCalificacion(Number(e.target.value))}
               className="form-input"
               required
             />

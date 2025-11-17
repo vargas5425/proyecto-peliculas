@@ -10,7 +10,7 @@ export class Review {
     @Column()
     texto: string;
 
-    @Column({ type: "int" })
+    @Column({ type: "float" })
     puntuacion: number;
 
     @ManyToOne(() => Pelicula, pelicula => pelicula.reviews)

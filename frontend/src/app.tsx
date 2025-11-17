@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Navbar from "./components/navBar";
 import Peliculas from "./pages/peliculas";
 import PeliculaDetalle from "./pages/peliculaDetalle";
-import Reviews from "./pages/reviews";
 import Login from "./pages/login";
 import Registro from "./pages/registro";
 import NuevoReview from "./pages/nuevoReview";
@@ -30,7 +29,6 @@ function App() {
         <Route path="/" element={<Navigate to="/peliculas" />} />
         <Route path="/peliculas" element={<Peliculas />} />
         <Route path="/peliculas/:id" element={<PeliculaDetalle usuario={usuario} />} />
-        <Route path="/reviews/:id" element={<Reviews />} />
         <Route path="/login" element={<Login setUsuario={setUsuario} />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/agregar-review/:id" element={usuario ? <NuevoReview usuario={usuario} /> : <Navigate to="/login" />}/>

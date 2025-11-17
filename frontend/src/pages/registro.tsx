@@ -29,7 +29,7 @@ function Registro() {
         password: hashedPassword,
       });
 
-      setMensaje("Registro exitoso 🎉");
+      setMensaje("Registro exitoso");
       setNombre("");
       setEmail("");
       setPassword("");

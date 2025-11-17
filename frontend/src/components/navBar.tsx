@@ -9,7 +9,6 @@ interface Props {
 function Navbar({ usuario, onLogout }: Props) {
   return (
     <nav style={{ padding: "1rem", background: "#007bff", color: "white", display: "flex", gap: "1rem" }}>
-      <Link to="/" style={{ color: "white", textDecoration: "none" }}>Inicio</Link>
       <Link to="/peliculas" style={{ color: "white", textDecoration: "none" }}>Películas</Link>
 
       {usuario ? (

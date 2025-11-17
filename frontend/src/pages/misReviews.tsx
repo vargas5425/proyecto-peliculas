@@ -9,7 +9,6 @@ interface Props {
 
 function MisReviews({ usuario }: Props) {
   const [reviews, setReviews] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [editandoReview, setEditandoReview] = useState<any>(null);
 
   useEffect(() => {
@@ -24,14 +23,14 @@ function MisReviews({ usuario }: Props) {
     } catch (err) {
       console.error("Error al obtener reseñas del usuario", err);
     } finally {
-      setLoading(false);
+
     }
   };
 
   const handleEditar = async (reviewId: number, nuevosDatos: { texto: string; puntuacion: number }) => {
     try {
       await api.put(`/reviews/${reviewId}`, nuevosDatos);
-      cargarReviews(); // Recargar las reviews
+      cargarReviews();
       setEditandoReview(null);
     } catch (error: any) {
       alert("Error al editar: " + (error.response?.data?.message || error.message));
@@ -91,6 +90,7 @@ function MisReviews({ usuario }: Props) {
                 defaultValue={editandoReview.puntuacion}
                 min="1"
                 max="10"
+                step="0.1"
                 style={{ padding: '0.5rem' }}
               />
             </div>
