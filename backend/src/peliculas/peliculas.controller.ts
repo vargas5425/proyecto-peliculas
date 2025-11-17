@@ -5,7 +5,6 @@ import { diskStorage } from "multer";
 import { extname } from "path";
 import { PeliculasService } from "./peliculas.service";
 import { CreatePeliculaDto, UpdatePeliculaDto, PeliculaResponseDto } from "./dtos";
-import { CreatePeliculaWithFileDto } from "./dtos/create-pelicula-with-file.dto";
 
 @Controller("peliculas")
 @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
@@ -46,14 +45,15 @@ export class PeliculasController {
             },
         }),
     )
-    async create(@UploadedFile() imagen: Express.Multer.File, @Body() createPeliculaDto: CreatePeliculaWithFileDto): Promise<PeliculaResponseDto> {
+    async create(@UploadedFile() imagen: Express.Multer.File, @Body() createPeliculaDto: CreatePeliculaDto): Promise<PeliculaResponseDto> {
         if (!imagen) {
             throw new BadRequestException("La imagen es requerida");
         }
 
-        const peliculaData: CreatePeliculaDto = {
+        const peliculaData = {
             ...createPeliculaDto,
-            imagen: imagen.filename, // Solo guarda el nombre del archivo
+            imagen: imagen.filename,
+            calificacionPromedio: 0,
         };
 
         return this.peliculasService.create(peliculaData);

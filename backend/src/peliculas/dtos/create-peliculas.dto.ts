@@ -11,10 +11,6 @@ export class CreatePeliculaDto {
     @Max(new Date().getFullYear() + 5)
     anio: number;
 
-    @IsNotEmpty()
-    @IsString()
-    imagen: string;
-
     @IsOptional()
     @IsNumber()
     @Min(0)
