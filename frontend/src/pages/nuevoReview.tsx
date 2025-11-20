@@ -100,6 +100,12 @@ const handleAgregarReview = async () => {
     return;
   }
 
+  // Validaciones
+  if (!comentario.trim()) {
+    setMensaje("El Comentario no puede estar vacío");
+    return;
+  }
+
   setLoading(true);
   try {
     const reviewData = {
